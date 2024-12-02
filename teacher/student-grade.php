@@ -62,26 +62,39 @@ if ($_SESSION['role'] != 'teacher') {
                                         <p class="text-muted font-13 mb-4">
                                             List of grades of the student.
                                         </p>
-                                        <select class="form-select" id="academic_id" name="academic_id">
-                                            <option value="0">Select Academic Year</option>
-                                            <?php
-                                            $academic = new Academic($conn);
-                                            $schoolYear = $academic->getAllAcademicYear();
+                                        <div class="col-md-3">
+                                            <select class="form-select" id="academic_id" name="academic_id">
+                                                <option value="0">Select Academic Year</option>
+                                                <?php
+                                                $academic = new Academic($conn);
+                                                $schoolYear = $academic->getAllAcademicYear();
 
-                                            foreach ($schoolYear as $row) {
-                                                echo '<option value="' . $row['academic_year_id'] . '">' . $row['year'] . '</option>';
-                                            }
-                                            ?>
-                                        </select>
+                                                foreach ($schoolYear as $row) {
+                                                    echo '<option value="' . $row['academic_year_id'] . '">' . $row['year'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select class="form-select" id="semester" name="semseter">
+                                                <option value="">Select Semester</option>
+                                                <option value="first_sem">First Semester</option>
+                                                <option value="second_sem">Second Semester</option>
+                                                <option value="third_sem">Third Semester</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <button class="btn btn-info btn block refresh-table">
+                                                <i class="ri ri-refresh-fill"></i> Reload
+                                            </button>
+                                        </div>
                                     </div>
                                     <table id="student_lists" class="table dt-responsive table-bordered w-100">
                                         <thead>
                                             <tr>
-                                                <th>Subject Name</th>
-                                                <th>First Quarter</th>
-                                                <th>Second Quarter</th>
-                                                <th>Third Quarter</th>
-                                                <th>Fourth Quarter</th>
+                                                <th>#</th>
+                                                <th>Subject</th>
+                                                <th>Instructor/Professor</th>
                                                 <th>Final Grade</th>
                                                 <th>Remarks</th>
                                             </tr>
@@ -126,14 +139,18 @@ if ($_SESSION['role'] != 'teacher') {
     <script>
         $(document).ready(() => {
             // event listener for academic year
-            $('#academic_id').on('change', function () {
-                let academic_id = $(this).val();
+            $('.refresh-table').on('click', function () {
+                let academic_id = $('#academic_id').val();
+                let semester = $('#semester').val();
+
                 $.ajax({
                     type: "POST",
-                    url: "controllers/getStudentGrades.php",
+                    url: "controllers/getStudentFinalGrades.php",
                     data: {
                         student_id: <?php echo $_GET['student_id']; ?>,
-                        academic_id: academic_id
+                        academic_id: academic_id,
+                        semester: semester
+
                     },
                     success: function (response) {
                         response = JSON.parse(response);
@@ -141,38 +158,16 @@ if ($_SESSION['role'] != 'teacher') {
                         $('#student_lists').DataTable({
                             data: response,
                             columns: [{
+                                data: 'grades_id'
+                            },
+                            {
                                 data: 'subject_name'
                             },
                             {
-                                data: function (row) {
-                                    return row.grades[0] ? row.grades[0]
-                                        .final_grade :
-                                        '';
-                                }
+                                data: 'professor_name'
                             },
                             {
-                                data: function (row) {
-                                    return row.grades[1] ? row.grades[1]
-                                        .final_grade :
-                                        '';
-                                }
-                            },
-                            {
-                                data: function (row) {
-                                    return row.grades[2] ? row.grades[2]
-                                        .final_grade :
-                                        '';
-                                }
-                            },
-                            {
-                                data: function (row) {
-                                    return row.grades[3] ? row.grades[3]
-                                        .final_grade :
-                                        '';
-                                }
-                            },
-                            {
-                                data: 'final_grade'
+                                data: 'final_grades'
                             },
                             {
                                 data: 'remarks',

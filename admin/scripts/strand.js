@@ -12,7 +12,7 @@ $(document).ready(() => {
                         data: 'strand_id'
                     },
                     {
-                        title: 'Strand Name',
+                        title: 'Course Name',
                         data: 'strand_name'
                     },
                     {

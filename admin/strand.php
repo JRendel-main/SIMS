@@ -48,9 +48,9 @@ if ($_SESSION['role'] != 'admin') {
                                     <button class="btn btn-success waves-effect waves-light" data-bs-toggle="modal"
                                         data-bs-target="#addStrandModal">
                                         <i class="bi bi-plus"></i>
-                                        Add Strand</button>
+                                        Add Course</button>
                                 </div>
-                                <h4 class="page-title">Strand Lists</h4>
+                                <h4 class="page-title">Course Lists</h4>
                             </div>
                         </div>
                     </div>

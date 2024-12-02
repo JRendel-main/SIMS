@@ -19,7 +19,7 @@ if (isset($_GET['error'])) {
 ?>
 
 <head>
-    <title>Student Management System</title>
+    <title>Student Information Management System</title>
 
     <?php include 'layouts/head-css.php'; ?>
 </head>
@@ -37,9 +37,9 @@ if (isset($_GET['error'])) {
                     <a href="index.php" class="text-center logo-dark">
                         <span><img src="assets/images/nehs.png" alt="dark logo" height="80"></span>
                     </a>
-                    <h1 class="text-center">Student Management System</h1>
+                    <h1 class="text-center">Student Information Management System</h1>
                     <div class="text-center">
-                        <p class="text-muted">Sign in to continue to Student Management System.</p>
+                        <p class="text-muted">Dr. Gloria D Lacson Foundation College Inc.</p>
                     </div>
                 </div>
                 <div class="mb-auto">
@@ -67,8 +67,8 @@ if (isset($_GET['error'])) {
 
                 <!-- Footer-->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">Don't have an account? <a href="#" id="requestLink"
-                            class="text-muted ms-1"><b>Request here</b></a></p>
+                    <p class="text-muted">New student? <a href="#" id="requestLink" class="text-muted ms-1"><b>Request
+                                here</b></a></p>
                 </footer>
 
             </div> <!-- end .card-body -->
@@ -98,23 +98,21 @@ if (isset($_GET['error'])) {
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <form action="controllers/requestAccount.php" method="post">
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="firstname" class="form-label">First Name</label>
-                                    <input class="form-control" type="textbox" id="firstname" required=""
-                                        name='firstname' placeholder="Enter your first name">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="middlename" class="form-label">Middle Name</label>
-                                    <input class="form-control" type="textbox" id="middlename" required=""
-                                        name='middlename' placeholder="Enter your middle name">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="lastname" class="form-label">Last Name</label>
-                                    <input class="form-control" type="textbox" id="lastname" required="" name='lastname'
-                                        placeholder="Enter your last name">
-                                </div>
+                        <div class="mb-6">
+                            <div class="col-md-12">
+                                <label for="firstname" class="form-label">First Name</label>
+                                <input class="form-control" type="textbox" id="firstname" required="" name='firstname'
+                                    placeholder="Enter your first name">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="middlename" class="form-label">Middle Name</label>
+                                <input class="form-control" type="textbox" id="middlename" required="" name='middlename'
+                                    placeholder="Enter your middle name">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="lastname" class="form-label">Last Name</label>
+                                <input class="form-control" type="textbox" id="lastname" required="" name='lastname'
+                                    placeholder="Enter your last name">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -126,10 +124,29 @@ if (isset($_GET['error'])) {
                         <div class="mb-3">
                             <label for="gender" class="form-group">Gender</label>
                             <select class="form-control" id="gender" name="gender">
-                                <option value=""></option> 
-                                <option value="male">Male</option> 
-                                <option value="">Female</option> 
-                                <option value="">Other</option> 
+                                <option value=""></option>
+                                <option value="male">Male</option>
+                                <option value="">Female</option>
+                                <option value="">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student_type" class="form-group">Student Type</label>
+                            <select class="form-control" id="student_type" name="student_type">
+                                <option value="regular">Regular</option>
+                                <option value="irregular">Irregular</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student_type" class="form-group">Course</label>
+                            <select class="form-control" id="course" name="student_course">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student_type" class="form-group">Section</label>
+                            <select class="form-control" id="section" name="student_section">
+                                <option value=""></option>
                             </select>
                         </div>
                         <div class="d-grid mb-0 text-center">

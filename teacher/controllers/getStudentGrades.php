@@ -6,43 +6,49 @@ $conn = $db->connect();
 
 $grades = new Grades($conn);
 
-$student_id = $_POST['student_id'];
-$academic_year = $_POST['academic_id'];
+$section_id = $_POST['section_id'];
+$subject_id = $_POST['subject_id'];
 
-$studentGrades = $grades->getStudentFinals($student_id, $academic_year);
+// Fetching the student grades
+$studentGrades = $grades->getStudentFinals($section_id, $subject_id);
 
-// Initialize an empty array to store the organized data
 $data = [];
 
-foreach ($studentGrades as $grade) {
-    $subject_name = $grade['subject_name'];
-    $final_grade = $grade['final_grade'];
+if($studentGrades) {
 
-    // Check if the subject exists in the data array, if not, initialize it
-    if (!isset($data[$subject_name])) {
-        $data[$subject_name] = [
-            'subject_name' => $subject_name,
-            'grades' => [], // Initialize an empty array to store individual grades
-            'final_grade' => null,
-            'remarks' => null
-        ];
+    foreach($studentGrades as $grades) {
+
+        $student_id = $grades['student_id'];
+
+        $student_name = $grades['last_name'] .', ' . $grades['first_name'];
+
+        $final_grades = $grades['final_grade'];
+
+        $grade_id = $grades['grades_id'];
+
+        $remarks = $grades['remarks'];
+
+        $semester = $grades['semester'];
+
+
+        $data[] = array(
+
+            'student_id' => $student_id,
+
+            'student_name' => $student_name,
+
+            'grades_id' => $grade_id,
+
+            'final_grade' => $final_grades,
+
+            'remarks' => $remarks,
+
+            'semester' => $semester
+        ); 
+
     }
 
-    // Store each grade separately
-    $data[$subject_name]['grades'][] = [
-        'quarter' => $grade['Quarter'],
-        'final_grade' => $final_grade
-    ];
 }
 
-// Iterate over the subjects to calculate the final grade and remarks
-foreach ($data as &$subject) {
-    $total_grades = 0;
-    foreach ($subject['grades'] as $grade) {
-        $total_grades += $grade['final_grade'];
-    }
-    $subject['final_grade'] = round($total_grades / count($subject['grades']), 2); // Calculate average final grade
-    $subject['remarks'] = ($subject['final_grade'] >= 75) ? 'Passed' : 'Failed';
-}
-
-echo json_encode(array_values($data)); // Convert associative array to indexed array and encode as JSON
+// Output the result as JSON
+echo json_encode(array_values($data)); 

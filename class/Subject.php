@@ -26,7 +26,7 @@ class Subject
 
     public function addSubject($subjctTeacher, $academic_year, $strand, $semester, $subject_name, $subjectCode)
     {
-        $query = "INSERT INTO subject (subject_teacher, academic_year_id, strand_id, semester_id, subject_name, subject_code) VALUES ('$subjctTeacher', '$academic_year', '$strand', '$semester', '$subject_name', '$subjectCode')";
+        $query = "INSERT INTO subject (subject_teacher, academic_year_id, strand_id, semester, subject_name, subject_code) VALUES ('$subjctTeacher', '$academic_year', '$strand', '$semester', '$subject_name', '$subjectCode')";
         $result = $this->conn->query($query);
 
         if (!$result) {
@@ -38,12 +38,11 @@ class Subject
 
     public function fetchSubjects($requestData)
     {
-        $columns = ['subject_id', 'academic_year_id', 'strand_id', 'semester_id', 'subject_name', 'subject_code'];
-        $query = "SELECT a.*, b.*, c.*, d.* 
+        $columns = ['subject_id', 'academic_year_id', 'strand_id', 'semseter', 'subject_name', 'subject_code'];
+        $query = "SELECT a.*, b.*, c.*
           FROM subject a 
           INNER JOIN academic_year b ON a.academic_year_id = b.academic_year_id 
-          INNER JOIN strand c ON a.strand_id = c.strand_id 
-          INNER JOIN semester d ON a.semester_id = d.semester_id";
+          INNER JOIN strand c ON a.strand_id = c.strand_id";
 
         $data = [];
         $totalData = 0;

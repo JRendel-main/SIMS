@@ -66,7 +66,7 @@ $(document).ready(() => {
             },
             {
                 title: 'Semester',
-                data: 'semester_name'
+                data: 'semester'
             },
             {
                 title: 'Subject',
@@ -152,7 +152,7 @@ $(document).ready(() => {
                     $('#editSubjectId').val(subject.subject_id);
                     $('#editYear').val(subject.year);
                     $('#editStrand').val(subject.strand_id);
-                    $('#editSemester').val(subject.semester_id);
+                    $('#editSemester').val(subject.semester);
                     $('#editSubjectName').val(subject.subject_name);
                     $('#editSubjectCode').val(subject.subject_code);
                     $('#editSubjectModal').modal('show');

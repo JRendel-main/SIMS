@@ -111,21 +111,12 @@ if ($_SESSION['role'] != 'admin') {
                         </div>
                         <div class="mb-3">
                             <label for="semester" class="col-form-label">Semester:</label>
-                            <?php
-                            $semester = new Academic($conn);
-                            $semesterList = $semester->getAllSemester();
-
-                            if (count($semesterList) > 0) {
-                                echo '<select class="form-select" id="semester" name="semester" required>';
-                                echo '<option value="">Select Semester</option>';
-                                foreach ($semesterList as $row) {
-                                    echo '<option value="' . $row['semester_id'] . '">' . $row['semester_name'] . '</option>';
-                                }
-                                echo '</select>';
-                            } else {
-                                echo '<p class="text-danger">No semester found. Please add semester first.</p>';
-                            }
-                            ?>
+                            <select class="form-select" id="semester" name="semester" required>
+                                <option value="first_sem">First Semester</option>
+                                <option value="first_sem">Second Semester</option>
+                                <option value="first_sem">Third Semester</option>
+                                
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="subjectTeacher" class="col-form-label">Subject Teacher:</label>

@@ -26,8 +26,7 @@ $(document).ready(function () {
                         '<button class="btn btn-info btn-sm btn-edit" data-id="' + row.academic_year_id + '">Edit</button>';
                 }
             }
-        ],
-        dom: 'Bfrtip'
+        ]
     });
 
     // Fetch data from PHP controller

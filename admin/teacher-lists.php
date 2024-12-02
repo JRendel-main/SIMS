@@ -76,8 +76,8 @@ if ($_SESSION['role'] != 'admin') {
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header bg-success">
-                        <h5 class="modal-title text-white" id="addTeacherModalLabel">Add Teacher Manually</h5>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addTeacherModalLabel">Add Teacher Manually</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -157,7 +157,7 @@ if ($_SESSION['role'] != 'admin') {
                         <form id="editTeacherForm">
                             <input type="hidden" id="teacher_id" name="teacher_id">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="editTeacherFirstName" class="form-label">First Name</label>
                                         <input type="text" class="form-control" id="editTeacherFirstName"
@@ -221,13 +221,6 @@ if ($_SESSION['role'] != 'admin') {
                 </div>
             </div>
         </div>
-
-
-        <!-- end modal for adding teacher manually -->
-
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
 
     </div>
     <!-- END wrapper -->

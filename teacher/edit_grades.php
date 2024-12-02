@@ -74,13 +74,12 @@ if ($_SESSION['role'] != 'teacher') {
                                         <div class="mb-3 text-left">
                                             <?php
                                             $academic = new Academic($conn);
-                                            $semester = $academic->getSemester();
 
-                                            $semesterId = $_GET['quarter_id'];
-                                            $semesterName = $academic->getSemesterId($semesterId);
+                                            $semester = $_GET['semseter'];
+                                            $semesterName = $semester == "first_sem" ? "First Semester" : "Unknown";
                                             $academic_year = $academic->getAcademicYear($_GET['academic_id']);
 
-                                            echo '<h2 class="text-dark">' . $academic_year['year'] . ' - ' . $semesterName['Quarter'] . ' Quarter</h2>';
+                                            echo '<h2 class="text-dark">' . $academic_year['year'] . ' - ' . $semesterName . '</h2>';
                                             ?>
                                         </div>
                                     </div>

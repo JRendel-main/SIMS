@@ -77,7 +77,7 @@ if ($_SESSION['role'] != 'teacher') {
                                             <div class="card-body text-center">
                                                 <h5 class="card-title font-size-16">' . $year . ' - ' . $sectionName . '</h5>
                                                 <p class="card-text text-muted">' . $subjectName . '</p>
-                                                <a href="subject.php?section_id=' . $sectionId . '&subjectId=' . $subjectId . '" class="btn btn-success">
+                                                <a href="grades.php?section_id=' . $sectionId . '&subject_id=' . $subjectId . '" class="btn btn-success">
                                                     <i class="bi bi-eye"></i> View Students
                                                 </a>
                                             </div>

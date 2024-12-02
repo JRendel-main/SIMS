@@ -15,18 +15,18 @@ class Grades
         return $stmt->fetchAll();
     }
 
-    public function addComponent($subject_id, $component, $percentage)
+    public function addGrade($final_grade, $student_id, $semester, $subject_id)
     {
-        $sql = "INSERT INTO grade_component (subject_id, component_name, weight) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO grades (final_grade, student_id, semester, subject_id) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$subject_id, $component, $percentage]);
+        $stmt->execute([$final_grade, $student_id, $semester, $subject_id]);
     }
 
-    public function addGrade($semester_id, $component_id, $highest_grade, $initial_grade, $student_id, $subject_id, $academic_id)
+    public function editGrade($grade_id, $final_grade)
     {
-        $sql = "INSERT INTO grades (semester_id, component_id, highest_grade, initial_grade, student_id, subject_id, academic_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "UPDATE grades SET final_grade = ? WHERE grades_id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$semester_id, $component_id, $highest_grade, $initial_grade, $student_id, $subject_id, $academic_id]);
+        $stmt->execute([$final_grade, $grade_id]);
     }
 
     public function getGradesForStudentAndSubjectByComponent($student_id, $subject_id, $component_id)
@@ -256,18 +256,112 @@ class Grades
         }
     }
 
-    public function getStudentFinals($student_id, $academic_id)
-    {
-        $sql = "SELECT s.subject_name, fg.final_grade, sm.Quarter FROM subject s, final_grade fg, semester sm WHERE student_id = ? AND s.subject_id = fg.subject_id AND sm.semester_id = fg.semester_id AND fg.academic_id = ? ORDER BY sm.Quarter ASC";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $student_id, $academic_id); // Assuming $student_id is an integer
-        $stmt->execute();
+    public function getStudentFinals($section_id, $subject_id)
+{
+    $sql = "
+        SELECT 
 
-        $result = $stmt->get_result(); // Get the result set
-        $data = $result->fetch_all(MYSQLI_ASSOC); // Fetch all rows as associative array
+            Student.student_id,
 
-        return $data;
+            Student.first_name,
+
+            Student.last_name,
+
+            Grade.grades_id,
+
+            Grade.final_grade,
+
+            Grade.remarks,
+
+            Subject.semester
+
+        FROM 
+
+            student as Student 
+
+        LEFT JOIN 
+
+            section as Section ON Section.section_id = Student.section_id 
+
+        LEFT JOIN
+
+            grades as Grade ON Grade.student_id = Student.student_id AND Grade.subject_id = ?
+
+        LEFT JOIN 
+
+            subject as Subject ON Subject.subject_id = Grade.subject_id
+
+        WHERE
+
+            Student.section_id = ?
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    if (!$stmt) {
+        throw new Exception("Failed to prepare statement: " . $this->conn->error);
     }
+
+    $stmt->bind_param("ii", $subject_id, $section_id); // Bind parameters
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // Get the result set
+    if (!$result) {
+        throw new Exception("Failed to execute query: " . $stmt->error);
+    }
+
+    $data = $result->fetch_all(MYSQLI_ASSOC); // Fetch all rows as an associative array
+
+    $stmt->close(); // Close the statement
+    return $data;
+}
+
+public function getStudentFinalsGrades($student_id, $academic_id, $semester)
+{
+    $sql = "
+        SELECT 
+
+            Grades.*,
+
+            Subject.*,
+
+            Teacher.*
+
+        FROM 
+
+            grades as Grades 
+
+        LEFT JOIN 
+
+            subject as Subject ON Subject.subject_id = Grades.subject_id 
+
+        LEFT JOIN
+
+            teacher as Teacher ON Teacher.teacher_id = Subject.subject_teacher
+
+        WHERE
+
+            Subject.academic_year_id = ? AND Grades.student_id = ? AND Grades.semester = ?
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    if (!$stmt) {
+        throw new Exception("Failed to prepare statement: " . $this->conn->error);
+    }
+
+    $stmt->bind_param("iis", $academic_id, $student_id, $semester); // Bind parameters
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // Get the result set
+    if (!$result) {
+        throw new Exception("Failed to execute query: " . $stmt->error);
+    }
+
+    $data = $result->fetch_all(MYSQLI_ASSOC); // Fetch all rows as an associative array
+
+    $stmt->close(); // Close the statement
+    return $data;
+}
+
 
 
 }

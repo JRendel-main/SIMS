@@ -12,7 +12,7 @@
             <img src="../assets/images/nehs.png" alt="dark logo" />
         </span>
         <span class="logo-sm">
-            <p class="text-white">NEHS</p>
+            <p class="text-white">SIMS</p>
         </span>
     </a>
 
@@ -41,9 +41,32 @@
                 </a>
             </li>
 
+            <li class="side-nav-title">Grading System</li>
+
+            <li class="side-nav-item">
+                <a href="student-grades.php" class="side-nav-link">
+                    <i class="ri-pencil-fill"></i>
+                    <span> Student Grades </span>
+                </a>
+            </li>
+
             <li class="side-nav-title">Users</li>
 
-            <!-- user with second level -->
+            <li class="side-nav-item">
+                <a href="teacher-lists.php" class="side-nav-link">
+                    <i class="ri-presentation-line"></i>
+                    <span> Teacher Lists </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="student-lists.php" class="side-nav-link">
+                    <i class="ri-team-line"></i>
+                    <span> Students Lists </span>
+                </a>
+            </li>
+
+            <!-- user with second level
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarTeacher" aria-expanded="false"
                     class="side-nav-link side-sub-nav">
@@ -56,12 +79,12 @@
                         <li>
                             <a href="teacher-lists.php">Teacher List</a>
                         </li>
-                        <!-- <li>
+                         <li>
                             <a href="add-teacher.php">Add Teacher</a>
-                        </li> -->
+                        </li> 
                     </ul>
                 </div>
-            </li>
+            </li> -->
 
             <!-- user with second level -->
             <!-- <li class="side-nav-item">
@@ -98,15 +121,15 @@
                     <i class="
                     ri-group-line
                     "></i>
-                    <span> Section </span>
+                    <span> Sections </span>
                 </a>
             </li>
 
             <!-- Strand -->
             <li class="side-nav-item">
                 <a href="strand.php" class="side-nav-link">
-                    <i class="ri-group-line"></i>
-                    <span> Strand </span>
+                    <i class="ri-graduation-cap-line"></i>
+                    <span> Courses </span>
                 </a>
             </li>
 
