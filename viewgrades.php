@@ -248,9 +248,6 @@ $sectionName = $sectionInfo['section_name'];
                     }
                 });
             });
-
-
-
         })
     </script>
 
